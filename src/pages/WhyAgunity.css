@@ -1,0 +1,145 @@
+.why-page {
+  background: #080907;
+  color: #efede3;
+}
+
+.why-hero {
+  min-height: 650px;
+  padding: 180px 7% 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: #10120e;
+  border-bottom: 1px solid #252821;
+}
+
+.why-hero h1 {
+  margin: 25px 0;
+  font-size: clamp(60px, 9vw, 115px);
+  line-height: 0.88;
+  letter-spacing: -5px;
+}
+
+.why-hero h1 span {
+  color: #b9c94a;
+}
+
+.why-hero p {
+  max-width: 650px;
+  color: #85877e;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.why-reasons {
+  max-width: 1440px;
+  margin: auto;
+  padding: 120px 7%;
+}
+
+.why-heading > span {
+  color: #b9c94a;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.why-heading h2 {
+  margin: 20px 0 70px;
+  font-size: clamp(40px, 5vw, 68px);
+  line-height: 0.95;
+  letter-spacing: -2px;
+}
+
+.why-heading h2 span {
+  color: #b9c94a;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #292c25;
+  border-left: 1px solid #292c25;
+}
+
+.why-card {
+  min-height: 300px;
+  padding: 35px;
+  border-right: 1px solid #292c25;
+  border-bottom: 1px solid #292c25;
+}
+
+.why-card svg {
+  color: #b9c94a;
+  font-size: 25px;
+}
+
+.why-card h3 {
+  margin: 70px 0 15px;
+  font-size: 21px;
+}
+
+.why-card p {
+  margin: 0;
+  color: #7f8278;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.why-statement {
+  padding: 120px 7%;
+  display: grid;
+  grid-template-columns: 0.7fr 1.5fr;
+  gap: 80px;
+  background: #b9c94a;
+  color: #080907;
+}
+
+.why-statement-number {
+  color: #66702b;
+  font-size: 11px;
+}
+
+.why-statement h2 {
+  margin: 20px 0 35px;
+  font-size: clamp(55px, 7vw, 95px);
+  line-height: 0.86;
+  letter-spacing: -4px;
+}
+
+.why-statement h2 span {
+  color: #080907;
+}
+
+.why-statement p {
+  max-width: 680px;
+  color: #29301a;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.why-statement a {
+  margin-top: 25px;
+  display: inline-block;
+  padding: 16px 23px;
+  background: #080907;
+  color: #f0efe7;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 850px) {
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why-statement {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #efede3;
+  background: #080907;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  --black: #080907;
+  --black-soft: #0d0f0c;
+  --panel: #10120e;
+  --panel-light: #151813;
+
+  --cream: #efede3;
+  --muted: #85877e;
+  --muted-dark: #656860;
+
+  --line: #292c25;
+
+  --accent: #b9c94a;
+  --accent-light: #c8d65b;
+
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--black);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--black);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #35382f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+

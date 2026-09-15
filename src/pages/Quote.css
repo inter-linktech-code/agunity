@@ -1,0 +1,153 @@
+.quote-page {
+  background: #080907;
+  color: #efede3;
+}
+
+.quote-hero {
+  min-height: 620px;
+  padding: 180px 7% 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 60px;
+  background: #10120e;
+  border-bottom: 1px solid #252821;
+}
+
+.quote-hero h1 {
+  margin: 25px 0;
+  font-size: clamp(55px, 8vw, 105px);
+  line-height: 0.88;
+  letter-spacing: -4px;
+}
+
+.quote-hero h1 span {
+  color: #b9c94a;
+}
+
+.quote-hero p {
+  max-width: 600px;
+  color: #85877e;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.quote-benefits {
+  min-width: 250px;
+}
+
+.quote-benefits div {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #292c25;
+  color: #a1a39a;
+  font-size: 12px;
+}
+
+.quote-benefits svg {
+  color: #b9c94a;
+}
+
+.quote-section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 120px 7%;
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.quote-form-header {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quote-form-header span {
+  color: #b9c94a;
+  font-size: 10px;
+}
+
+.quote-form-header h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.quote-form-header.second {
+  margin-top: 55px;
+}
+
+.quote-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.quote-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #7d8077;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.quote-form input,
+.quote-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #2a2d26;
+  outline: none;
+  background: #10120e;
+  color: #efede3;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus {
+  border-color: #b9c94a;
+}
+
+.quote-message {
+  margin-top: 5px;
+}
+
+.quote-form button {
+  margin-top: 20px;
+  padding: 18px 25px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: #b9c94a;
+  color: #080907;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .quote-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quote-benefits {
+    width: 100%;
+  }
+
+  .quote-fields {
+    grid-template-columns: 1fr;
+  }
+}

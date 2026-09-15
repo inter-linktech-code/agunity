@@ -1,0 +1,169 @@
+.industries-page {
+  background: #080907;
+  color: #efede3;
+}
+
+.industries-hero {
+  min-height: 620px;
+  padding: 180px 7% 100px;
+  display: flex;
+  align-items: flex-end;
+  background: #10120e;
+  border-bottom: 1px solid #252821;
+}
+
+.industries-hero h1 {
+  margin: 25px 0;
+  font-size: clamp(55px, 8vw, 105px);
+  line-height: 0.9;
+  letter-spacing: -4px;
+}
+
+.industries-hero h1 span {
+  color: #b9c94a;
+}
+
+.industries-hero p {
+  max-width: 620px;
+  color: #85877e;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.industries-grid-section {
+  max-width: 1440px;
+  margin: auto;
+  padding: 120px 7%;
+}
+
+.section-heading {
+  margin-bottom: 60px;
+}
+
+.section-heading span {
+  color: #b9c94a;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.section-heading h2 {
+  max-width: 700px;
+  margin: 18px 0 0;
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #292c25;
+  border-left: 1px solid #292c25;
+}
+
+.industry-card {
+  min-height: 390px;
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #292c25;
+  border-bottom: 1px solid #292c25;
+  transition: background 0.25s ease;
+}
+
+.industry-card:hover {
+  background: #10120e;
+}
+
+.industry-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.industry-card-top span {
+  color: #60635b;
+  font-size: 11px;
+}
+
+.industry-card-top svg {
+  color: #b9c94a;
+  font-size: 23px;
+}
+
+.industry-card h3 {
+  margin: 75px 0 15px;
+  font-size: 25px;
+}
+
+.industry-card p {
+  margin: 0;
+  color: #81847a;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.industry-card strong {
+  margin-top: 25px;
+  color: #b8b8ae;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.industry-card a {
+  margin-top: auto;
+  padding-top: 35px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #b9c94a;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.industries-bottom {
+  padding: 110px 7%;
+  background: #b9c94a;
+  color: #080907;
+}
+
+.industries-bottom h2 {
+  margin: 20px 0 35px;
+  font-size: clamp(45px, 6vw, 78px);
+  line-height: 0.92;
+  letter-spacing: -3px;
+}
+
+.industries-bottom h2 span {
+  color: #080907;
+}
+
+.industries-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 24px;
+  background: #080907;
+  color: #f0efe7;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .industries-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .industries-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .industry-card {
+    min-height: 330px;
+  }
+}
+
