@@ -1,633 +1,547 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
 import {
   FiArrowRight,
   FiArrowUpRight,
   FiCheckCircle,
-  FiChevronDown,
-  FiFilter,
-  FiSearch,
+  FiChevronRight,
+  FiMapPin,
   FiSettings,
   FiTool,
-  FiX,
+  FiTrendingUp,
+  FiUsers,
 } from "react-icons/fi";
 
-import machineryData from "../data/machineryData";
+import coffeeHuller from "../assets/coffee-huller.jpg";
+import coffeeWetPulper from "../assets/coffee-wet-pulper.jpg";
+import maizeHullerMill from "../assets/maize-huller-mill.jpg";
+import maizeSheller from "../assets/maize-sheller.jpg";
+import riceHuller from "../assets/rice-huller.jpg";
+import riceThresher from "../assets/rice-thresher.jpg";
+import cassavaChipper from "../assets/cassava-chipper.jpg";
+import cassavaMill from "../assets/cassava-mill.jpg";
+import animalFeedMixer from "../assets/animal-feed-mixer.jpg";
+import animalFeedMill from "../assets/animal-feed-mill.jpg";
+import seedCleaner from "../assets/seed-cleaner.jpg";
+import briquetteMachine from "../assets/briquette-machine.jpg";
 
-import "./Machinery.css";
+import "./Industries.css";
 
-const categories = [
-  "All Machinery",
-  "Coffee Processing",
-  "Maize Processing",
-  "Rice Processing",
-  "Cassava Processing",
-  "Grain Processing",
-  "Animal Feed",
-  "Material Handling",
-  "Seed Processing",
-  "Biomass",
-  "Construction",
-  "Processing & Fabrication",
+const industries = [
+  {
+    number: "01",
+    id: "coffee",
+    title: "Coffee Processing",
+    shortTitle: "Coffee",
+    description:
+      "Machinery solutions for coffee farmers, processors, cooperatives and commercial enterprises involved in coffee processing and value addition.",
+    image: coffeeHuller,
+    machines: [
+      "Coffee Huller Machine",
+      "Coffee Wet Pulper",
+    ],
+    keywords:
+      "coffee processing machinery Uganda, coffee huller Uganda, coffee pulper Kampala",
+  },
+  {
+    number: "02",
+    id: "maize",
+    title: "Maize Processing",
+    shortTitle: "Maize",
+    description:
+      "Practical machinery for maize shelling, hulling, milling and grain preparation across small, medium and commercial processing operations.",
+    image: maizeHullerMill,
+    machines: [
+      "Maize Huller & Mill",
+      "Maize Sheller",
+      "Broken Maize Machine",
+    ],
+    keywords:
+      "maize processing machinery Uganda, maize milling machine Kampala, maize sheller Uganda",
+  },
+  {
+    number: "03",
+    id: "grain",
+    title: "Grain Processing",
+    shortTitle: "Grain",
+    description:
+      "Agricultural processing equipment supporting threshing, cleaning, milling and preparation of a wide range of grains and cereals.",
+    image: seedCleaner,
+    machines: [
+      "Multiple Thresher",
+      "Sorghum Thresher",
+      "Groundnut Thresher",
+      "Millet Mill",
+      "Seed Cleaner",
+    ],
+    keywords:
+      "grain processing machinery Uganda, grain thresher Kampala, agricultural processing equipment Uganda",
+  },
+  {
+    number: "04",
+    id: "rice",
+    title: "Rice Processing",
+    shortTitle: "Rice",
+    description:
+      "Rice processing machinery designed to support efficient threshing, hulling and post-harvest handling for farmers and commercial processors.",
+    image: riceHuller,
+    machines: [
+      "Rice Thresher",
+      "Rice Huller",
+    ],
+    keywords:
+      "rice processing machinery Uganda, rice huller Uganda, rice thresher Kampala",
+  },
+  {
+    number: "05",
+    id: "cassava",
+    title: "Cassava Processing",
+    shortTitle: "Cassava",
+    description:
+      "Processing solutions for cassava preparation, chipping and milling, helping agricultural enterprises add value to cassava production.",
+    image: cassavaMill,
+    machines: [
+      "Cassava Chipper",
+      "Cassava Mill",
+    ],
+    keywords:
+      "cassava processing machinery Uganda, cassava chipper Kampala, cassava mill Uganda",
+  },
+  {
+    number: "06",
+    id: "animal-feed",
+    title: "Animal Feed Production",
+    shortTitle: "Animal Feed",
+    description:
+      "Machinery for livestock and poultry feed preparation, including mixing, milling, silage and feed-processing operations.",
+    image: animalFeedMill,
+    machines: [
+      "Animal Feed Mixer",
+      "Animal Feed Mill",
+      "Silage Machine",
+      "Chaff Cutter",
+    ],
+    keywords:
+      "animal feed machinery Uganda, feed mill Kampala, animal feed mixer Uganda",
+  },
+  {
+    number: "07",
+    id: "seed",
+    title: "Seed Processing",
+    shortTitle: "Seed",
+    description:
+      "Equipment supporting the cleaning and preparation of agricultural seed and grain before storage, distribution or further processing.",
+    image: seedCleaner,
+    machines: [
+      "Seed Cleaner",
+      "Material Handling Systems",
+    ],
+    keywords:
+      "seed processing machinery Uganda, seed cleaner Kampala, seed cleaning machine Uganda",
+  },
+  {
+    number: "08",
+    id: "biomass",
+    title: "Biomass & Briquette Production",
+    shortTitle: "Biomass",
+    description:
+      "Machinery solutions for converting suitable agricultural and biomass materials into useful fuel products and supporting circular production systems.",
+    image: briquetteMachine,
+    machines: [
+      "Briquette Machine",
+      "Biomass Processing Equipment",
+    ],
+    keywords:
+      "briquette machine Uganda, biomass machinery Kampala, briquette making machine Uganda",
+  },
 ];
 
-const featuredIds = [
-  "coffee-huller",
-  "coffee-wet-pulper",
-  "maize-huller-mill",
-  "rice-huller",
-  "cassava-mill",
-  "animal-feed-mill",
+const capabilities = [
+  {
+    icon: <FiSettings />,
+    number: "01",
+    title: "Machine Fabrication",
+    text:
+      "Agricultural processing machines fabricated to support practical production requirements and operating conditions.",
+  },
+  {
+    icon: <FiTool />,
+    number: "02",
+    title: "Processing Systems",
+    text:
+      "Individual machines and interconnected equipment for agricultural processing and material handling operations.",
+  },
+  {
+    icon: <FiTrendingUp />,
+    number: "03",
+    title: "Value Addition",
+    text:
+      "Equipment designed to help agricultural businesses move beyond raw production into processing and value addition.",
+  },
+  {
+    icon: <FiUsers />,
+    number: "04",
+    title: "Business Solutions",
+    text:
+      "Machinery solutions serving farmers, cooperatives, processors, institutions and commercial enterprises.",
+  },
 ];
 
-function Machinery() {
-  const [activeCategory, setActiveCategory] =
-    useState("All Machinery");
+const serviceAreas = [
+  "Agricultural cooperatives",
+  "Commercial agro-processors",
+  "Farmers and farmer groups",
+  "Food processing businesses",
+  "Animal feed producers",
+  "Grain and cereal processors",
+  "Coffee processors",
+  "Rice processors",
+  "Institutional agricultural projects",
+  "Agribusiness enterprises",
+];
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const [mobileFilterOpen, setMobileFilterOpen] =
-    useState(false);
-
-  const filteredMachines = useMemo(() => {
-    const search = searchTerm.trim().toLowerCase();
-
-    return machineryData.filter((machine) => {
-      const matchesCategory =
-        activeCategory === "All Machinery" ||
-        machine.category === activeCategory;
-
-      const matchesSearch =
-        !search ||
-        machine.name.toLowerCase().includes(search) ||
-        machine.category.toLowerCase().includes(search) ||
-        machine.description.toLowerCase().includes(search) ||
-        machine.keywords.toLowerCase().includes(search);
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchTerm]);
-
-  const featuredMachines = machineryData.filter((machine) =>
-    featuredIds.includes(machine.id)
-  );
-
+function Industries() {
   return (
-    <div className="machinery-page">
+    <main className="industries-page">
 
       {/* HERO */}
-      <section className="machinery-hero">
-        <div className="machinery-hero-grid"></div>
-
-        <div className="machinery-container machinery-hero-inner">
-
-          <div className="machinery-breadcrumb">
-            <Link to="/">Home</Link>
-            <FiChevronDown />
-            <span>Machinery</span>
-          </div>
-
-          <div className="machinery-hero-content">
-
-            <div className="machinery-eyebrow">
-              <span></span>
-              AGUNITY / MACHINERY
-            </div>
-
-            <h1>
-              Agricultural machinery
-              <em> fabricated for production.</em>
-            </h1>
-
-            <p>
-              Explore Agunity Investment Ltd's range of
-              agricultural processing machinery fabricated and
-              supplied from Kampala, Uganda for farmers,
-              processors, cooperatives and agro-industrial
-              businesses across East Africa.
-            </p>
-
-            <div className="machinery-hero-actions">
-
-              <a
-                href="#catalogue"
-                className="machinery-primary-button"
-              >
-                Explore Catalogue
-                <FiArrowRight />
-              </a>
-
-              <Link
-                to="/request-a-quote"
-                className="machinery-outline-button"
-              >
-                Discuss Your Requirements
-                <FiArrowUpRight />
-              </Link>
-
-            </div>
-
-          </div>
-
-          <div className="machinery-hero-stat">
-
-            <div className="stat-line"></div>
-
-            <div>
-              <strong>{machineryData.length}+</strong>
-
-              <span>
-                MACHINERY
-                <br />
-                SOLUTIONS
-              </span>
-            </div>
-
-            <div className="stat-divider"></div>
-
-            <div>
-              <strong>EA</strong>
-
-              <span>
-                EAST AFRICA
-                <br />
-                MARKET
-              </span>
-            </div>
-
-          </div>
-
+      <section className="industries-hero">
+        <div className="industries-hero-background">
+          <div className="industries-hero-pattern"></div>
+          <div className="industries-hero-shape industries-hero-shape-one"></div>
+          <div className="industries-hero-shape industries-hero-shape-two"></div>
         </div>
-      </section>
 
-      {/* INTRO */}
-      <section className="machinery-intro">
+        <div className="industries-container industries-hero-inner">
 
-        <div className="machinery-container">
+          <div className="industries-breadcrumb">
+            <Link to="/">Home</Link>
+            <FiChevronRight />
+            <span>Industries</span>
+          </div>
 
-          <div className="machinery-intro-grid">
+          <div className="industries-hero-grid">
 
-            <div className="machinery-section-number">
-              <span>01</span>
-              <div></div>
-              <span>FABRICATION</span>
-            </div>
+            <div className="industries-hero-content">
 
-            <div className="machinery-intro-heading">
+              <div className="industries-eyebrow">
+                <span className="industries-eyebrow-line"></span>
+                AGRICULTURAL INDUSTRIES
+              </div>
 
-              <span className="machinery-kicker">
-                BUILT AROUND YOUR OPERATION
-              </span>
+              <h1>
+                Machinery Built for
+                <span> Agricultural Production</span>
+              </h1>
 
-              <h2>
-                More than machines.
-                <br />
-                <em>Engineered solutions.</em>
-              </h2>
-
-            </div>
-
-            <div className="machinery-intro-copy">
-
-              <p>
-                Agunity Investment Ltd fabricates
-                agricultural processing machinery with a
-                focus on practical performance,
-                affordability and suitability for local
-                production environments.
+              <p className="industries-hero-lead">
+                Agunity Investment Ltd provides agricultural machinery
+                fabrication and processing solutions for businesses,
+                farmers, cooperatives and agro-processors across Uganda
+                and East Africa.
               </p>
 
-              <p>
-                Our machinery range covers crop processing,
-                grain handling, animal feed production,
-                biomass processing and related applications.
-              </p>
+              <div className="industries-hero-actions">
+                <Link
+                  to="/machinery"
+                  className="industries-primary-button"
+                >
+                  Explore Machinery
+                  <FiArrowUpRight />
+                </Link>
 
-              <div className="intro-points">
+                <Link
+                  to="/request-a-quote"
+                  className="industries-outline-button"
+                >
+                  Request a Quote
+                  <FiArrowRight />
+                </Link>
+              </div>
 
+              <div className="industries-hero-meta">
                 <div>
-                  <FiCheckCircle />
-                  <span>Uganda-based fabrication</span>
+                  <strong>Uganda</strong>
+                  <span>Based &amp; Fabricated</span>
                 </div>
 
-                <div>
-                  <FiCheckCircle />
-                  <span>Custom machinery solutions</span>
-                </div>
+                <div className="industries-meta-divider"></div>
 
                 <div>
-                  <FiCheckCircle />
-                  <span>
-                    Practical production-focused design
-                  </span>
+                  <strong>East Africa</strong>
+                  <span>Regional Focus</span>
                 </div>
 
+                <div className="industries-meta-divider"></div>
+
+                <div>
+                  <strong>Agro</strong>
+                  <span>Processing Solutions</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="industries-hero-visual">
+
+              <div className="industries-hero-image-wrap">
+                <img
+                  src={coffeeHuller}
+                  alt="Coffee huller machine for agricultural processing in Uganda"
+                  className="industries-hero-image"
+                />
+
+                <div className="industries-hero-image-overlay"></div>
+
+                <div className="industries-hero-image-label">
+                  <span>AGUNITY FABRICATION</span>
+                  <strong>Agricultural Processing Machinery</strong>
+                </div>
+              </div>
+
+              <div className="industries-hero-badge">
+                <FiSettings />
+                <div>
+                  <strong>Built for Production</strong>
+                  <span>Practical machinery solutions</span>
+                </div>
               </div>
 
             </div>
 
           </div>
-
         </div>
-
       </section>
 
-      {/* FEATURED MACHINES */}
-      <section className="featured-machinery">
+      {/* INTRODUCTION */}
+      <section className="industries-intro">
+        <div className="industries-container">
 
-        <div className="machinery-container">
+          <div className="industries-intro-grid">
 
-          <div className="machinery-section-heading">
+            <div className="industries-section-marker">
+              <span>01</span>
+              <div></div>
+              <small>OUR SECTORS</small>
+            </div>
 
-            <div>
+            <div className="industries-intro-main">
 
-              <span className="machinery-kicker">
-                SELECTED MACHINERY
-              </span>
+              <div className="industries-kicker">
+                INDUSTRY-FOCUSED ENGINEERING
+              </div>
 
               <h2>
-                Built for the
-                <br />
-                <em>processing floor.</em>
+                Supporting the
+                <span> agricultural value chain.</span>
               </h2>
+
+              <p className="industries-intro-large">
+                Agricultural production does not end at harvest. Efficient
+                processing, handling and value addition are essential for
+                turning crops into commercially useful products.
+              </p>
+
+              <p>
+                Agunity Investment Ltd fabricates and supplies machinery
+                serving different stages of agricultural processing. Our
+                solutions are relevant to coffee, maize, grains, rice,
+                cassava, animal feed, seed processing, biomass and other
+                agricultural applications.
+              </p>
+
+              <p>
+                We work with businesses and agricultural enterprises that
+                need practical equipment to improve processing efficiency,
+                increase production capacity and create greater value from
+                locally available agricultural resources.
+              </p>
 
             </div>
 
+          </div>
+
+        </div>
+      </section>
+
+      {/* INDUSTRIES */}
+      <section className="industries-list-section">
+        <div className="industries-container">
+
+          <div className="industries-section-heading">
+
+            <div>
+              <div className="industries-kicker">
+                INDUSTRIES WE SERVE
+              </div>
+
+              <h2>
+                From farm production
+                <span> to processing.</span>
+              </h2>
+            </div>
+
             <p>
-              A selection of machinery solutions available
-              from Agunity Investment Ltd.
+              Explore the agricultural sectors supported by Agunity's
+              machinery fabrication and processing solutions.
             </p>
 
           </div>
 
-          <div className="featured-machine-grid">
+          <div className="industry-list">
 
-            {featuredMachines.map((machine, index) => (
-
-              <Link
-                to={`/machinery/${machine.id}`}
-                className="featured-machine-card"
-                key={machine.id}
+            {industries.map((industry) => (
+              <article
+                className="industry-card"
+                id={industry.id}
+                key={industry.id}
               >
 
-                <div className="featured-machine-image">
-
-                  <div className="machine-tech-grid"></div>
-
-                  <div className="machine-placeholder">
-
-                    <div className="machine-shape">
-
-                      <div className="shape-hopper"></div>
-                      <div className="shape-body"></div>
-                      <div className="shape-base"></div>
-
-                      <div className="shape-wheel wheel-one"></div>
-                      <div className="shape-wheel wheel-two"></div>
-
-                    </div>
-
-                  </div>
-
-                  <span className="machine-index">
-                    {(index + 1)
-                      .toString()
-                      .padStart(2, "0")}
-                  </span>
-
-                  <span className="machine-category">
-                    {machine.category}
-                  </span>
-
+                <div className="industry-card-number">
+                  {industry.number}
                 </div>
 
-                <div className="featured-machine-info">
+                <div className="industry-card-image-wrap">
+                  <img
+                    src={industry.image}
+                    alt={`${industry.title} machinery and processing equipment in Uganda`}
+                    className="industry-card-image"
+                  />
 
-                  <h3>{machine.name}</h3>
+                  <div className="industry-card-image-overlay"></div>
 
-                  <p>{machine.description}</p>
+                  <div className="industry-card-image-label">
+                    {industry.shortTitle}
+                  </div>
+                </div>
 
-                  <div>
-                    View Machine
+                <div className="industry-card-content">
+
+                  <div className="industry-card-top">
+                    <span className="industry-card-tag">
+                      AGRICULTURAL SECTOR
+                    </span>
+
+                    <span className="industry-card-arrow">
+                      <FiArrowUpRight />
+                    </span>
+                  </div>
+
+                  <h3>{industry.title}</h3>
+
+                  <p>{industry.description}</p>
+
+                  <div className="industry-machine-heading">
+                    MACHINERY APPLICATIONS
+                  </div>
+
+                  <ul className="industry-machine-list">
+                    {industry.machines.map((machine) => (
+                      <li key={machine}>
+                        <FiCheckCircle />
+                        <span>{machine}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    to="/machinery"
+                    className="industry-card-link"
+                  >
+                    View Machinery
                     <FiArrowRight />
-                  </div>
+                  </Link>
 
                 </div>
 
-              </Link>
-
+              </article>
             ))}
 
           </div>
 
         </div>
-
       </section>
 
-      {/* CATALOGUE */}
-      <section
-        className="catalogue-section"
-        id="catalogue"
-      >
+      {/* CAPABILITIES */}
+      <section className="industries-capabilities">
+        <div className="industries-container">
 
-        <div className="machinery-container">
-
-          <div className="catalogue-heading">
+          <div className="industries-capabilities-heading">
 
             <div>
-
-              <span className="machinery-kicker">
-                COMPLETE CATALOGUE
-              </span>
+              <div className="industries-kicker">
+                OUR CAPABILITIES
+              </div>
 
               <h2>
-                Agricultural processing
-                <br />
-                <em>machinery.</em>
+                More than individual
+                <span> machines.</span>
               </h2>
-
             </div>
 
-            <div className="catalogue-heading-copy">
-
-              <p>
-                Find the machine suited to your crop,
-                process or production requirement.
-              </p>
-
-            </div>
+            <p>
+              Our work can support individual processing requirements as
+              well as broader agricultural production and material
+              handling applications.
+            </p>
 
           </div>
 
-          <div className="catalogue-toolbar">
+          <div className="capabilities-grid">
 
-            <div className="search-box">
+            {capabilities.map((capability) => (
+              <div
+                className="capability-card"
+                key={capability.number}
+              >
 
-              <FiSearch />
-
-              <input
-                type="text"
-                placeholder="Search machinery..."
-                value={searchTerm}
-                onChange={(event) =>
-                  setSearchTerm(event.target.value)
-                }
-                aria-label="Search machinery"
-              />
-
-              {searchTerm && (
-                <button
-                  type="button"
-                  onClick={() => setSearchTerm("")}
-                  aria-label="Clear search"
-                >
-                  <FiX />
-                </button>
-              )}
-
-            </div>
-
-            <button
-              type="button"
-              className="mobile-filter-button"
-              onClick={() =>
-                setMobileFilterOpen(!mobileFilterOpen)
-              }
-            >
-              <FiFilter />
-              Filters
-            </button>
-
-            <div className="catalogue-count">
-
-              <strong>
-                {filteredMachines.length}
-              </strong>
-
-              <span>MACHINES</span>
-
-            </div>
-
-          </div>
-
-          <div
-            className={`catalogue-layout ${
-              mobileFilterOpen ? "filters-open" : ""
-            }`}
-          >
-
-            <aside className="catalogue-sidebar">
-
-              <div className="sidebar-heading">
-
-                <span>FILTER BY</span>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setMobileFilterOpen(false)
-                  }
-                  aria-label="Close filters"
-                >
-                  <FiX />
-                </button>
-
-              </div>
-
-              <div className="category-list">
-
-                {categories.map((category) => (
-
-                  <button
-                    type="button"
-                    key={category}
-                    className={
-                      activeCategory === category
-                        ? "active"
-                        : ""
-                    }
-                    onClick={() => {
-                      setActiveCategory(category);
-                      setMobileFilterOpen(false);
-                    }}
-                  >
-
-                    <span>{category}</span>
-                    <FiChevronDown />
-
-                  </button>
-
-                ))}
-
-              </div>
-
-              <div className="sidebar-quote">
-
-                <FiTool />
-
-                <strong>
-                  Need a custom machine?
-                </strong>
-
-                <p>
-                  Tell us what you need to process and our
-                  team can discuss a fabrication solution.
-                </p>
-
-                <Link to="/request-a-quote">
-                  Talk to Agunity
-                  <FiArrowUpRight />
-                </Link>
-
-              </div>
-
-            </aside>
-
-            <div className="catalogue-results">
-
-              {filteredMachines.length > 0 ? (
-
-                <div className="catalogue-grid">
-
-                  {filteredMachines.map(
-                    (machine, index) => (
-
-                      <Link
-                        to={`/machinery/${machine.id}`}
-                        className="catalogue-card"
-                        key={machine.id}
-                      >
-
-                        <div className="catalogue-card-visual">
-
-                          <div className="catalogue-card-grid"></div>
-
-                          <div className="catalogue-machine">
-
-                            <div className="catalogue-hopper"></div>
-                            <div className="catalogue-body"></div>
-                            <div className="catalogue-base"></div>
-
-                            <div className="catalogue-wheel left"></div>
-                            <div className="catalogue-wheel right"></div>
-
-                          </div>
-
-                          <span className="catalogue-number">
-                            {(index + 1)
-                              .toString()
-                              .padStart(2, "0")}
-                          </span>
-
-                          <div className="catalogue-arrow">
-                            <FiArrowUpRight />
-                          </div>
-
-                        </div>
-
-                        <div className="catalogue-card-content">
-
-                          <span>
-                            {machine.category}
-                          </span>
-
-                          <h3>
-                            {machine.name}
-                          </h3>
-
-                          <p>
-                            {machine.description}
-                          </p>
-
-                          <div className="catalogue-card-bottom">
-
-                            <span>
-                              View Details
-                            </span>
-
-                            <FiArrowRight />
-
-                          </div>
-
-                        </div>
-
-                      </Link>
-
-                    )
-                  )}
-
+                <div className="capability-top">
+                  <span>{capability.number}</span>
+                  <div className="capability-icon">
+                    {capability.icon}
+                  </div>
                 </div>
 
-              ) : (
+                <h3>{capability.title}</h3>
 
-                <div className="empty-results">
+                <p>{capability.text}</p>
 
-                  <FiSearch />
-
-                  <h3>
-                    No machinery found
-                  </h3>
-
-                  <p>
-                    Try another search term or select a
-                    different machinery category.
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSearchTerm("");
-                      setActiveCategory("All Machinery");
-                    }}
-                  >
-                    Reset Catalogue
-                  </button>
-
-                </div>
-
-              )}
-
-            </div>
+              </div>
+            ))}
 
           </div>
 
         </div>
-
       </section>
 
       {/* APPLICATIONS */}
-      <section className="applications-section">
+      <section className="industries-applications">
+        <div className="industries-container">
 
-        <div className="machinery-container">
-
-          <div className="applications-grid">
+          <div className="applications-layout">
 
             <div className="applications-heading">
 
-              <span className="machinery-kicker">
-                APPLICATIONS
-              </span>
+              <div className="industries-kicker">
+                WHO WE SERVE
+              </div>
 
               <h2>
-                One fabrication
-                <br />
-                partner.
-                <br />
-                <em>Many applications.</em>
+                Machinery for
+                <span> agricultural businesses.</span>
               </h2>
 
               <p>
-                Agricultural processing is different for
-                every operation. Our machinery range supports
-                multiple crops and production environments.
+                Our equipment can support different types of agricultural
+                enterprises, from organized farmer groups to commercial
+                processing businesses.
               </p>
 
               <Link
-                to="/industries"
-                className="machinery-text-link"
+                to="/contact"
+                className="industries-text-button"
               >
-                Explore Industries
+                Discuss Your Requirement
                 <FiArrowUpRight />
               </Link>
 
@@ -635,145 +549,146 @@ function Machinery() {
 
             <div className="applications-list">
 
-              <div>
-                <span>01</span>
-                <strong>Coffee Processing</strong>
-                <p>
-                  Hulling and wet pulping solutions for
-                  coffee processors.
-                </p>
-                <FiArrowUpRight />
-              </div>
+              {serviceAreas.map((area, index) => (
+                <div
+                  className="application-item"
+                  key={area}
+                >
+                  <span>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-              <div>
-                <span>02</span>
-                <strong>Maize Processing</strong>
-                <p>
-                  Shelling, hulling and milling equipment
-                  for maize processing.
-                </p>
-                <FiArrowUpRight />
-              </div>
+                  <strong>{area}</strong>
 
-              <div>
-                <span>03</span>
-                <strong>Rice Processing</strong>
-                <p>
-                  Threshing and hulling machinery for rice
-                  processors.
-                </p>
-                <FiArrowUpRight />
-              </div>
-
-              <div>
-                <span>04</span>
-                <strong>Cassava Processing</strong>
-                <p>
-                  Chipping and milling solutions for
-                  cassava processing.
-                </p>
-                <FiArrowUpRight />
-              </div>
-
-              <div>
-                <span>05</span>
-                <strong>Animal Feed Production</strong>
-                <p>
-                  Mills, mixers, chaff cutters and silage
-                  equipment.
-                </p>
-                <FiArrowUpRight />
-              </div>
-
-              <div>
-                <span>06</span>
-                <strong>Grain & Seed Processing</strong>
-                <p>
-                  Threshing, cleaning and milling machinery
-                  for different grains.
-                </p>
-                <FiArrowUpRight />
-              </div>
+                  <FiArrowUpRight />
+                </div>
+              ))}
 
             </div>
 
           </div>
 
         </div>
-
       </section>
 
-      {/* FABRICATION CTA */}
-      <section className="machinery-cta">
+      {/* REGIONAL REACH */}
+      <section className="industries-reach">
+        <div className="industries-container">
 
-        <div className="machinery-container">
+          <div className="reach-grid">
 
-          <div className="machinery-cta-inner">
+            <div className="reach-content">
 
-            <div className="cta-decoration">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-
-            <div className="machinery-cta-content">
-
-              <span className="machinery-kicker">
-                CUSTOM FABRICATION
-              </span>
+              <div className="industries-kicker">
+                REGIONAL AGRICULTURAL ENGINEERING
+              </div>
 
               <h2>
-                Don't see the machine
-                <br />
-                you need?
+                Fabricated in Uganda.
+                <span> Built for regional agriculture.</span>
               </h2>
 
               <p>
-                Agunity can discuss custom agricultural
-                machinery requirements based on your crop,
-                process, production capacity and operating
-                environment.
+                Uganda has a strong agricultural economy and a growing
+                demand for local processing and value-addition solutions.
+                Agunity focuses on machinery that can support these
+                agricultural enterprises.
               </p>
 
-              <div className="machinery-cta-actions">
+              <p>
+                Our regional outlook extends across East African
+                agricultural markets where practical processing,
+                fabrication and material-handling equipment can support
+                local production.
+              </p>
 
-                <Link
-                  to="/request-a-quote"
-                  className="machinery-dark-button"
-                >
-                  Discuss Your Machine
-                  <FiArrowRight />
-                </Link>
+              <div className="reach-location">
+                <FiMapPin />
 
-                <Link
-                  to="/about"
-                  className="machinery-light-button"
-                >
-                  About Our Fabrication
-                  <FiArrowUpRight />
-                </Link>
-
+                <div>
+                  <strong>Gayaza Road, Kampala</strong>
+                  <span>Uganda</span>
+                </div>
               </div>
 
             </div>
 
-            <div className="cta-engineering">
+            <div className="reach-stat-panel">
 
-              <FiSettings />
+              <div className="reach-panel-label">
+                AGRICULTURAL MACHINERY
+              </div>
 
-              <span>AGUNITY</span>
+              <div className="reach-big-number">
+                23+
+              </div>
 
-              <strong>
-                FABRICATION
-                <br />
-                ENGINEERING
-              </strong>
+              <h3>
+                Machinery solutions
+                across multiple agricultural sectors.
+              </h3>
 
-              <small>
-                KAMPALA / UGANDA
-              </small>
+              <div className="reach-panel-line"></div>
+
+              <div className="reach-panel-bottom">
+                <span>COFFEE</span>
+                <span>GRAIN</span>
+                <span>RICE</span>
+                <span>CASSAVA</span>
+                <span>FEED</span>
+                <span>BIOMASS</span>
+              </div>
 
             </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="industries-cta">
+
+        <div className="industries-cta-grid"></div>
+
+        <div className="industries-container industries-cta-inner">
+
+          <div className="industries-cta-content">
+
+            <div className="industries-kicker">
+              START YOUR PROJECT
+            </div>
+
+            <h2>
+              Looking for machinery
+              <span> for your operation?</span>
+            </h2>
+
+            <p>
+              Tell us what you need to process, the scale of your
+              operation and the type of equipment you are looking for.
+              Our team can discuss a suitable machinery solution.
+            </p>
+
+          </div>
+
+          <div className="industries-cta-actions">
+
+            <Link
+              to="/request-a-quote"
+              className="industries-cta-primary"
+            >
+              Request a Quote
+              <FiArrowUpRight />
+            </Link>
+
+            <Link
+              to="/machinery"
+              className="industries-cta-secondary"
+            >
+              Explore Machinery
+              <FiArrowRight />
+            </Link>
 
           </div>
 
@@ -781,8 +696,8 @@ function Machinery() {
 
       </section>
 
-    </div>
+    </main>
   );
 }
 
-export default Machinery;
+export default Industries;

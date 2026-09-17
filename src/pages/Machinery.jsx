@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+
 import {
+  FiArrowDown,
   FiArrowRight,
   FiArrowUpRight,
   FiCheck,
@@ -28,13 +30,14 @@ function Machinery() {
 
     return machineryData.filter((machine) => {
       const matchesCategory =
-        activeCategory === "All" || machine.category === activeCategory;
+        activeCategory === "All" ||
+        machine.category === activeCategory;
 
       const searchableText = `
         ${machine.name}
         ${machine.category}
         ${machine.description}
-        ${machine.keywords?.join(" ") || ""}
+        ${machine.keywords || ""}
       `.toLowerCase();
 
       const matchesSearch =
@@ -44,19 +47,24 @@ function Machinery() {
     });
   }, [searchTerm, activeCategory]);
 
+  const resetCatalogue = () => {
+    setSearchTerm("");
+    setActiveCategory("All");
+  };
+
   return (
     <div className="machinery-page">
-
       {/* =====================================================
           HERO
       ===================================================== */}
 
       <section className="machinery-hero">
+        <div className="machinery-hero-image" />
+
         <div className="machinery-hero-grid" />
 
-        <div className="machinery-container">
+        <div className="machinery-container machinery-hero-container">
           <div className="machinery-hero-content">
-
             <div className="machinery-eyebrow">
               ENGINEERING • FABRICATION • AGRO-PROCESSING
             </div>
@@ -67,9 +75,10 @@ function Machinery() {
             </h1>
 
             <p>
-              Explore agricultural processing machines fabricated and
-              supplied by Agunity Investment Ltd for farmers, processors,
-              businesses and institutions across Uganda and East Africa.
+              Explore agricultural processing machines fabricated
+              and supplied by Agunity Investment Ltd for farmers,
+              processors, businesses and institutions across Uganda
+              and East Africa.
             </p>
 
             <div className="machinery-hero-actions">
@@ -89,11 +98,9 @@ function Machinery() {
                 <FiArrowUpRight />
               </Link>
             </div>
-
           </div>
 
           <div className="machinery-hero-side">
-
             <div className="machinery-number">
               <strong>{machineryData.length}+</strong>
               <span>Machine solutions</span>
@@ -108,7 +115,6 @@ function Machinery() {
               <strong>EAST AFRICA</strong>
               <span>Regional reach</span>
             </div>
-
           </div>
         </div>
       </section>
@@ -119,7 +125,6 @@ function Machinery() {
 
       <section className="machinery-intro">
         <div className="machinery-container machinery-intro-grid">
-
           <div>
             <div className="machinery-section-label">
               OUR MACHINERY
@@ -131,12 +136,12 @@ function Machinery() {
             </h2>
           </div>
 
-          <div>
+          <div className="machinery-intro-copy">
             <p>
               From grain threshing and milling to coffee processing,
               cassava processing, animal feed production and material
-              handling, Agunity provides machinery designed around the
-              practical requirements of agricultural businesses.
+              handling, Agunity provides machinery designed around
+              the practical requirements of agricultural businesses.
             </p>
 
             <p>
@@ -144,7 +149,6 @@ function Machinery() {
               machinery supply, installation and technical support.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -157,9 +161,7 @@ function Machinery() {
         id="machinery-catalogue"
       >
         <div className="machinery-container">
-
           <div className="machinery-catalogue-header">
-
             <div>
               <div className="machinery-section-label">
                 MACHINE CATALOGUE
@@ -175,13 +177,11 @@ function Machinery() {
               Browse our agricultural processing and fabrication
               solutions.
             </p>
-
           </div>
 
-          {/* SEARCH */}
+          {/* SEARCH + FILTER */}
 
           <div className="machinery-controls">
-
             <div className="machinery-search">
               <FiSearch />
 
@@ -192,6 +192,7 @@ function Machinery() {
                 onChange={(event) =>
                   setSearchTerm(event.target.value)
                 }
+                aria-label="Search machinery"
               />
             </div>
 
@@ -203,6 +204,7 @@ function Machinery() {
                 onChange={(event) =>
                   setActiveCategory(event.target.value)
                 }
+                aria-label="Filter machinery by category"
               >
                 {categories.map((category) => (
                   <option
@@ -214,7 +216,6 @@ function Machinery() {
                 ))}
               </select>
             </div>
-
           </div>
 
           {/* CATEGORY BUTTONS */}
@@ -236,7 +237,7 @@ function Machinery() {
             ))}
           </div>
 
-          {/* RESULTS */}
+          {/* RESULTS BAR */}
 
           <div className="machinery-results-bar">
             <span>
@@ -249,10 +250,7 @@ function Machinery() {
             {(searchTerm || activeCategory !== "All") && (
               <button
                 type="button"
-                onClick={() => {
-                  setSearchTerm("");
-                  setActiveCategory("All");
-                }}
+                onClick={resetCatalogue}
               >
                 Clear filters
               </button>
@@ -263,39 +261,51 @@ function Machinery() {
 
           {filteredMachines.length > 0 ? (
             <div className="machinery-grid">
-
               {filteredMachines.map((machine, index) => (
                 <article
                   className="machinery-card"
                   key={machine.id || machine.name}
                 >
-
-                  <div className="machinery-card-visual">
-
-                    <div className="machinery-card-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-
-                    <div className="machinery-illustration">
-
-                      <div className="machine-body">
-                        <div className="machine-top" />
-                        <div className="machine-panel" />
-                        <div className="machine-base" />
-                        <div className="machine-wheel wheel-left" />
-                        <div className="machine-wheel wheel-right" />
+                  <Link
+                    to={`/machinery/${machine.id}`}
+                    className="machinery-card-image-link"
+                    aria-label={`View ${machine.name}`}
+                  >
+                    <div className="machinery-card-visual">
+                      <div className="machinery-card-number">
+                        {String(index + 1).padStart(2, "0")}
                       </div>
 
-                    </div>
+                      {machine.image ? (
+                        <img
+                          src={machine.image}
+                          alt={`${machine.name} - Agunity Investment Ltd Uganda`}
+                          className="machinery-card-image"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="machinery-image-fallback">
+                          <FiSettings />
+                          <span>
+                            {machine.name}
+                          </span>
+                        </div>
+                      )}
 
-                    <div className="machinery-card-tag">
-                      AGUNITY
-                    </div>
+                      <div className="machinery-card-overlay">
+                        <span>
+                          View Machine
+                          <FiArrowUpRight />
+                        </span>
+                      </div>
 
-                  </div>
+                      <div className="machinery-card-tag">
+                        AGUNITY
+                      </div>
+                    </div>
+                  </Link>
 
                   <div className="machinery-card-content">
-
                     <div className="machinery-card-category">
                       {machine.category}
                     </div>
@@ -307,21 +317,16 @@ function Machinery() {
                     </p>
 
                     <div className="machinery-card-footer">
-
                       <Link
                         to={`/machinery/${machine.id}`}
                       >
                         View Machine
                         <FiArrowUpRight />
                       </Link>
-
                     </div>
-
                   </div>
-
                 </article>
               ))}
-
             </div>
           ) : (
             <div className="machinery-empty">
@@ -338,16 +343,12 @@ function Machinery() {
 
               <button
                 type="button"
-                onClick={() => {
-                  setSearchTerm("");
-                  setActiveCategory("All");
-                }}
+                onClick={resetCatalogue}
               >
                 Reset Catalogue
               </button>
             </div>
           )}
-
         </div>
       </section>
 
@@ -356,13 +357,9 @@ function Machinery() {
       ===================================================== */}
 
       <section className="machinery-fabrication">
-
         <div className="machinery-container">
-
           <div className="fabrication-card">
-
             <div className="fabrication-content">
-
               <div className="machinery-section-label">
                 CUSTOM FABRICATION
               </div>
@@ -381,27 +378,33 @@ function Machinery() {
               </p>
 
               <div className="fabrication-points">
-
                 <div>
                   <FiCheck />
-                  <span>Custom machine fabrication</span>
+                  <span>
+                    Custom machine fabrication
+                  </span>
                 </div>
 
                 <div>
                   <FiCheck />
-                  <span>Machine modification</span>
+                  <span>
+                    Machine modification
+                  </span>
                 </div>
 
                 <div>
                   <FiCheck />
-                  <span>Production-line integration</span>
+                  <span>
+                    Production-line integration
+                  </span>
                 </div>
 
                 <div>
                   <FiCheck />
-                  <span>Installation & technical support</span>
+                  <span>
+                    Installation & technical support
+                  </span>
                 </div>
-
               </div>
 
               <Link
@@ -411,18 +414,14 @@ function Machinery() {
                 Discuss Your Requirement
                 <FiArrowUpRight />
               </Link>
-
             </div>
 
             <div className="fabrication-mark">
               <FiSettings />
               <span>FABRICATED IN UGANDA</span>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* =====================================================
@@ -430,11 +429,8 @@ function Machinery() {
       ===================================================== */}
 
       <section className="machinery-applications">
-
         <div className="machinery-container">
-
           <div className="applications-header">
-
             <div>
               <div className="machinery-section-label">
                 APPLICATIONS
@@ -450,11 +446,9 @@ function Machinery() {
               Equipment for different stages of agricultural
               processing, handling and production.
             </p>
-
           </div>
 
           <div className="applications-grid">
-
             <div className="application-item">
               <span>01</span>
               <h3>Threshing</h3>
@@ -508,11 +502,8 @@ function Machinery() {
                 production.
               </p>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* =====================================================
@@ -520,11 +511,8 @@ function Machinery() {
       ===================================================== */}
 
       <section className="machinery-cta">
-
         <div className="machinery-container">
-
           <div className="machinery-cta-inner">
-
             <div className="machinery-section-label">
               START A PROJECT
             </div>
@@ -541,7 +529,6 @@ function Machinery() {
             </p>
 
             <div className="machinery-cta-actions">
-
               <Link
                 to="/request-a-quote"
                 className="machinery-primary-btn"
@@ -557,28 +544,11 @@ function Machinery() {
                 Contact Agunity
                 <FiArrowRight />
               </Link>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
-
     </div>
-  );
-}
-
-/* =========================================================
-   SIMPLE DOWN ARROW
-   ========================================================= */
-
-function FiArrowDown() {
-  return (
-    <span className="machinery-down-arrow">
-      ↓
-    </span>
   );
 }
 

@@ -7,6 +7,7 @@ import {
   FiArrowUpRight,
 } from "react-icons/fi";
 
+import logo from "../assets/logo.png";
 import "./Navbar.css";
 
 function Navbar() {
@@ -24,13 +25,17 @@ function Navbar() {
         <div className="navbar-inner">
 
           {/* BRAND */}
-
           <Link
             to="/"
             className="navbar-brand"
             onClick={closeMenu}
           >
-            <span className="brand-symbol">AI</span>
+            <span className="brand-logo">
+              <img
+                src={logo}
+                alt="Agunity Investment Ltd logo"
+              />
+            </span>
 
             <span className="brand-copy">
               <strong>AGUNITY</strong>
@@ -39,7 +44,6 @@ function Navbar() {
           </Link>
 
           {/* DESKTOP NAVIGATION */}
-
           <nav className="desktop-nav">
 
             <NavLink to="/" end>
@@ -51,21 +55,19 @@ function Navbar() {
             </NavLink>
 
             {/* MACHINERY DROPDOWN */}
-
             <div className="nav-dropdown">
               <button
                 type="button"
                 className="nav-dropdown-trigger"
-                onClick={() =>
-                  setMachineryOpen(!machineryOpen)
-                }
+                onClick={() => setMachineryOpen(!machineryOpen)}
               >
                 Machinery
-                <FiChevronDown />
+                <FiChevronDown
+                  className={machineryOpen ? "rotate-icon" : ""}
+                />
               </button>
 
               <div className="nav-dropdown-menu">
-
                 <Link to="/machinery">
                   All Machinery
                 </Link>
@@ -90,11 +92,13 @@ function Navbar() {
                   Animal Feed
                 </Link>
 
-                <Link to="/machinery">
+                <Link
+                  to="/machinery"
+                  className="dropdown-catalogue-link"
+                >
                   View Complete Catalogue
                   <FiArrowUpRight />
                 </Link>
-
               </div>
             </div>
 
@@ -117,11 +121,9 @@ function Navbar() {
               Request a Quote
               <FiArrowUpRight />
             </Link>
-
           </nav>
 
           {/* MOBILE MENU BUTTON */}
-
           <button
             type="button"
             className="mobile-menu-button"
@@ -130,25 +132,25 @@ function Navbar() {
           >
             <FiMenu />
           </button>
-
         </div>
       </header>
 
-      {/* =====================================================
-          MOBILE MENU
-      ===================================================== */}
-
+      {/* MOBILE MENU */}
       {mobileOpen && (
         <div className="mobile-menu">
 
           <div className="mobile-menu-header">
-
             <Link
               to="/"
               className="navbar-brand"
               onClick={closeMenu}
             >
-              <span className="brand-symbol">AI</span>
+              <span className="brand-logo">
+                <img
+                  src={logo}
+                  alt="Agunity Investment Ltd logo"
+                />
+              </span>
 
               <span className="brand-copy">
                 <strong>AGUNITY</strong>
@@ -164,7 +166,6 @@ function Navbar() {
             >
               <FiX />
             </button>
-
           </div>
 
           <nav className="mobile-nav">
@@ -185,22 +186,15 @@ function Navbar() {
             </NavLink>
 
             {/* MOBILE MACHINERY */}
-
             <button
               type="button"
               className="mobile-dropdown-button"
-              onClick={() =>
-                setMachineryOpen(!machineryOpen)
-              }
+              onClick={() => setMachineryOpen(!machineryOpen)}
             >
               <span>Machinery</span>
 
               <FiChevronDown
-                className={
-                  machineryOpen
-                    ? "rotate-icon"
-                    : ""
-                }
+                className={machineryOpen ? "rotate-icon" : ""}
               />
             </button>
 
@@ -248,7 +242,6 @@ function Navbar() {
                 >
                   Animal Feed
                 </Link>
-
               </div>
             )}
 
@@ -297,7 +290,6 @@ function Navbar() {
             </Link>
 
           </nav>
-
         </div>
       )}
     </>
@@ -305,4 +297,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

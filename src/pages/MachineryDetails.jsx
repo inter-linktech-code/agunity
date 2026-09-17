@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   FiArrowLeft,
@@ -21,8 +20,60 @@ function MachineryDetails() {
   );
 
   /* =========================================================
+     PAGE SEO
+  ========================================================= */
+
+  useEffect(() => {
+    if (!machine) {
+      document.title =
+        "Machine Not Found | Agunity Investment Ltd";
+
+      return;
+    }
+
+    document.title = `${machine.name} Uganda | Agricultural Machinery | Agunity Investment Ltd`;
+
+    const description =
+      machine.description ||
+      `${machine.name} for agricultural processing in Uganda, supplied and fabricated by Agunity Investment Ltd.`;
+
+    let metaDescription = document.querySelector(
+      'meta[name="description"]'
+    );
+
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.setAttribute("name", "description");
+      document.head.appendChild(metaDescription);
+    }
+
+    metaDescription.setAttribute("content", description);
+
+    let metaKeywords = document.querySelector(
+      'meta[name="keywords"]'
+    );
+
+    if (!metaKeywords) {
+      metaKeywords = document.createElement("meta");
+      metaKeywords.setAttribute("name", "keywords");
+      document.head.appendChild(metaKeywords);
+    }
+
+    metaKeywords.setAttribute(
+      "content",
+      machine.keywords ||
+        `${machine.name}, agricultural machinery Uganda, agricultural machinery Kampala, agro processing machinery Uganda`
+    );
+
+    return () => {
+      document.title =
+        "Agunity Investment Ltd | Agricultural Machinery Uganda";
+    };
+  }, [machine]);
+
+  /* =========================================================
      MACHINE NOT FOUND
-     ========================================================= */
+  ========================================================= */
 
   if (!machine) {
     return (
@@ -54,7 +105,7 @@ function MachineryDetails() {
 
   /* =========================================================
      RELATED MACHINERY
-     ========================================================= */
+  ========================================================= */
 
   const relatedMachines = machineryData
     .filter(
@@ -63,9 +114,6 @@ function MachineryDetails() {
         item.category === machine.category
     )
     .slice(0, 3);
-
-  /* If there are not enough machines in the same category,
-     fill the remaining cards with other machinery. */
 
   if (relatedMachines.length < 3) {
     machineryData.forEach((item) => {
@@ -81,6 +129,10 @@ function MachineryDetails() {
     });
   }
 
+  /* =========================================================
+     ENGINEERING FEATURES
+  ========================================================= */
+
   const features = [
     "Fabricated for practical agricultural processing",
     "Designed for reliable day-to-day operation",
@@ -89,6 +141,10 @@ function MachineryDetails() {
     "Serviceable components for easier maintenance",
     "Technical support available from Agunity",
   ];
+
+  /* =========================================================
+     APPLICATIONS
+  ========================================================= */
 
   const applications = [
     "Agricultural processing",
@@ -99,6 +155,17 @@ function MachineryDetails() {
     "Small and medium enterprises",
   ];
 
+  /* =========================================================
+     MACHINE IMAGE
+  ========================================================= */
+
+  const machineImage =
+    machine.image ||
+    machine.images?.[0] ||
+    machine.photo ||
+    machine.imageUrl ||
+    "";
+
   return (
     <div className="machine-details-page">
 
@@ -107,13 +174,13 @@ function MachineryDetails() {
       ===================================================== */}
 
       <section className="machine-details-hero">
-
         <div className="machine-details-container">
 
           {/* BREADCRUMB */}
 
           <div className="machine-breadcrumb">
             <Link to="/">Home</Link>
+
             <span>/</span>
 
             <Link to="/machinery">
@@ -128,6 +195,8 @@ function MachineryDetails() {
           {/* HERO GRID */}
 
           <div className="machine-details-grid">
+
+            {/* HERO COPY */}
 
             <div className="machine-details-copy">
 
@@ -165,7 +234,7 @@ function MachineryDetails() {
 
             </div>
 
-            {/* MACHINE VISUAL */}
+            {/* MACHINE PHOTOGRAPH */}
 
             <div className="machine-visual-card">
 
@@ -173,30 +242,33 @@ function MachineryDetails() {
 
               <div className="machine-visual-inner">
 
-                <div className="machine-art">
+                {machineImage ? (
+                  <img
+                    src={machineImage}
+                    alt={`${machine.name} agricultural machinery fabricated and supplied by Agunity Investment Ltd in Uganda`}
+                    className="machine-details-image"
+                  />
+                ) : (
+                  <div className="machine-image-fallback">
+                    <FiSettings />
 
-                  <div className="machine-art-label">
-                    AGUNITY
+                    <span>
+                      AGUNITY INVESTMENT LTD
+                    </span>
                   </div>
+                )}
 
-                  <div className="machine-art-top" />
+                <div className="machine-photo-label">
+                  <span>
+                    AGUNITY INVESTMENT LTD
+                  </span>
 
-                  <div className="machine-art-main" />
-
-                  <div className="machine-art-accent" />
-
-                  <div className="machine-art-leg one" />
-
-                  <div className="machine-art-leg two" />
-
-                  <div className="machine-art-wheel one" />
-
-                  <div className="machine-art-wheel two" />
-
+                  <strong>
+                    {machine.name}
+                  </strong>
                 </div>
 
               </div>
-
             </div>
 
           </div>
@@ -206,7 +278,6 @@ function MachineryDetails() {
           <div className="machine-meta-strip">
 
             <div className="machine-meta-item">
-
               <span className="machine-meta-label">
                 Category
               </span>
@@ -214,11 +285,9 @@ function MachineryDetails() {
               <span className="machine-meta-value">
                 {machine.category}
               </span>
-
             </div>
 
             <div className="machine-meta-item">
-
               <span className="machine-meta-label">
                 Engineering
               </span>
@@ -226,11 +295,9 @@ function MachineryDetails() {
               <span className="machine-meta-value">
                 Agricultural Processing
               </span>
-
             </div>
 
             <div className="machine-meta-item">
-
               <span className="machine-meta-label">
                 Availability
               </span>
@@ -238,13 +305,11 @@ function MachineryDetails() {
               <span className="machine-meta-value">
                 Fabrication & Supply
               </span>
-
             </div>
 
           </div>
 
         </div>
-
       </section>
 
       {/* =====================================================
@@ -255,7 +320,9 @@ function MachineryDetails() {
 
         <div className="machine-info-layout">
 
-          {/* LEFT */}
+          {/* =================================================
+              LEFT CONTENT
+          ================================================= */}
 
           <div>
 
@@ -274,22 +341,37 @@ function MachineryDetails() {
               </h2>
 
               <p className="machine-section-text">
-                The {machine.name} is part of Agunity Investment
-                Ltd's agricultural machinery range, developed to
-                support efficient processing and value addition
-                within agricultural production.
+                The {machine.name} is part of Agunity
+                Investment Ltd's agricultural machinery
+                range, developed to support efficient
+                processing and value addition within
+                agricultural production.
               </p>
 
               <p
                 className="machine-section-text"
                 style={{ marginTop: "18px" }}
               >
-                Agunity combines local fabrication capability with
-                practical engineering knowledge to provide
-                machinery solutions for agricultural businesses,
-                processors, farmers, cooperatives and institutions
-                across Uganda and the wider East African market.
+                Agunity combines local fabrication capability
+                with practical engineering knowledge to
+                provide machinery solutions for agricultural
+                businesses, processors, farmers, cooperatives
+                and institutions across Uganda and the wider
+                East African market.
               </p>
+
+              {machine.keywords && (
+                <p
+                  className="machine-section-text"
+                  style={{
+                    marginTop: "18px",
+                    fontSize: "0.78rem",
+                    color: "#87918a",
+                  }}
+                >
+                  {machine.keywords}
+                </p>
+              )}
 
             </div>
 
@@ -340,8 +422,9 @@ function MachineryDetails() {
 
               <p className="machine-section-text">
                 This machine can form part of different
-                agricultural processing operations depending on
-                the crop, production model and required output.
+                agricultural processing operations depending
+                on the crop, production model and required
+                output.
               </p>
 
               <div className="machine-applications">
@@ -361,7 +444,9 @@ function MachineryDetails() {
 
           </div>
 
-          {/* RIGHT — SPECIFICATIONS */}
+          {/* =================================================
+              RIGHT — MACHINE INFORMATION
+          ================================================= */}
 
           <aside>
 
@@ -382,52 +467,72 @@ function MachineryDetails() {
               <dl className="machine-spec-list">
 
                 <div className="machine-spec-row">
-                  <dt>Category</dt>
-                  <dd>{machine.category}</dd>
+                  <dt>
+                    Category
+                  </dt>
+
+                  <dd>
+                    {machine.category}
+                  </dd>
                 </div>
 
                 <div className="machine-spec-row">
-                  <dt>Application</dt>
+                  <dt>
+                    Application
+                  </dt>
+
                   <dd>
                     Agricultural Processing
                   </dd>
                 </div>
 
                 <div className="machine-spec-row">
-                  <dt>Build</dt>
+                  <dt>
+                    Build
+                  </dt>
+
                   <dd>
                     Fabricated
                   </dd>
                 </div>
 
                 <div className="machine-spec-row">
-                  <dt>Supplier</dt>
+                  <dt>
+                    Supplier
+                  </dt>
+
                   <dd>
                     Agunity Investment Ltd
                   </dd>
                 </div>
 
                 <div className="machine-spec-row">
-                  <dt>Location</dt>
+                  <dt>
+                    Location
+                  </dt>
+
                   <dd>
                     Kampala, Uganda
                   </dd>
                 </div>
 
+                <div className="machine-spec-row">
+                  <dt>
+                    Market
+                  </dt>
+
+                  <dd>
+                    Uganda & East Africa
+                  </dd>
+                </div>
+
               </dl>
 
-              <div
-                style={{
-                  padding: "22px 25px",
-                  borderTop:
-                    "1px solid rgba(255,255,255,0.08)",
-                }}
-              >
+              <div className="machine-spec-action">
 
                 <Link
                   to="/request-a-quote"
                   className="machine-primary-btn"
-                  style={{ width: "100%" }}
                 >
                   Get Machine Quote
                   <FiArrowUpRight />
@@ -464,11 +569,11 @@ function MachineryDetails() {
             </h2>
 
             <p>
-              Your production requirements may be different from
-              a standard machine configuration. Talk to Agunity
-              about fabrication, modification, capacity
-              requirements, dimensions or integration with other
-              processing equipment.
+              Your production requirements may be different
+              from a standard machine configuration. Talk to
+              Agunity about fabrication, modification, capacity
+              requirements, dimensions or integration with
+              other processing equipment.
             </p>
 
             <Link
@@ -494,6 +599,7 @@ function MachineryDetails() {
       ===================================================== */}
 
       {relatedMachines.length > 0 && (
+
         <section className="related-machinery-section">
 
           <div className="related-machinery-container">
@@ -521,43 +627,83 @@ function MachineryDetails() {
 
             <div className="related-machinery-grid">
 
-              {relatedMachines.map((relatedMachine) => (
-                <Link
-                  to={`/machinery/${relatedMachine.id}`}
-                  className="related-machine-card"
-                  key={relatedMachine.id}
-                >
+              {relatedMachines.map((relatedMachine) => {
 
-                  <div>
+                const relatedImage =
+                  relatedMachine.image ||
+                  relatedMachine.images?.[0] ||
+                  relatedMachine.photo ||
+                  relatedMachine.imageUrl ||
+                  "";
 
-                    <div className="related-machine-category">
-                      {relatedMachine.category}
+                return (
+                  <Link
+                    to={`/machinery/${relatedMachine.id}`}
+                    className="related-machine-card"
+                    key={relatedMachine.id}
+                  >
+
+                    {/* REAL MACHINE PHOTO */}
+
+                    <div className="related-machine-image">
+
+                      {relatedImage ? (
+                        <img
+                          src={relatedImage}
+                          alt={`${relatedMachine.name} agricultural machinery`}
+                        />
+                      ) : (
+                        <div className="related-machine-image-fallback">
+                          <FiSettings />
+                        </div>
+                      )}
+
+                      <div className="related-machine-image-overlay" />
+
+                      <span className="related-machine-category">
+                        {relatedMachine.category}
+                      </span>
+
+                      <div className="related-machine-arrow">
+                        <FiArrowUpRight />
+                      </div>
+
                     </div>
 
-                    <h3>
-                      {relatedMachine.name}
-                    </h3>
+                    {/* MACHINE CONTENT */}
 
-                  </div>
+                    <div className="related-machine-content">
 
-                  <div className="related-machine-bottom">
+                      <h3>
+                        {relatedMachine.name}
+                      </h3>
 
-                    <span>
-                      View Machine
-                    </span>
+                      <p>
+                        {relatedMachine.description}
+                      </p>
 
-                    <FiArrowUpRight />
+                      <div className="related-machine-bottom">
 
-                  </div>
+                        <span>
+                          View Machine
+                        </span>
 
-                </Link>
-              ))}
+                        <FiArrowRight />
+
+                      </div>
+
+                    </div>
+
+                  </Link>
+                );
+              })}
 
             </div>
 
           </div>
 
         </section>
+
       )}
 
       {/* =====================================================
@@ -575,14 +721,16 @@ function MachineryDetails() {
           <h2>
             Let's build the right
             <br />
-            <span>processing solution.</span>
+            <span>
+              processing solution.
+            </span>
           </h2>
 
           <p>
-            Tell us what you process, your expected production
-            capacity and what you want the machine to achieve.
-            Our team can help you determine the right equipment
-            or fabrication approach.
+            Tell us what you process, your expected
+            production capacity and what you want the machine
+            to achieve. Our team can help you determine the
+            right equipment or fabrication approach.
           </p>
 
           <Link

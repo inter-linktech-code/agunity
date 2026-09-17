@@ -1,0 +1,1405 @@
+/* =========================================================
+   RELATED MACHINERY — REAL PHOTOS
+========================================================= */
+
+.related-machine-card {
+  padding: 0;
+  display: block;
+  min-height: auto;
+  background: var(--md-white);
+  color: var(--md-text);
+}
+
+.related-machine-image {
+  position: relative;
+  height: 270px;
+  overflow: hidden;
+  background: #dfe4df;
+}
+
+.related-machine-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.related-machine-card:hover .related-machine-image img {
+  transform: scale(1.06);
+}
+
+.related-machine-image-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9, 35, 22, 0.05) 20%,
+      rgba(9, 35, 22, 0.72) 100%
+    );
+}
+
+.related-machine-category {
+  position: absolute;
+  z-index: 3;
+  left: 20px;
+  bottom: 18px;
+  color: var(--md-white);
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.related-machine-arrow {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--md-white);
+  color: var(--md-green);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.related-machine-card:hover .related-machine-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.related-machine-image-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-green-dark);
+  color: var(--md-orange);
+}
+
+.related-machine-image-fallback svg {
+  font-size: 4rem;
+}
+
+.related-machine-content {
+  padding: 25px 25px 27px;
+  background: var(--md-white);
+}
+
+.related-machine-content h3 {
+  margin: 0;
+  color: var(--md-green-dark);
+  font-size: 1.18rem;
+  line-height: 1.2;
+}
+
+.related-machine-content p {
+  margin: 11px 0 22px;
+  color: var(--md-muted);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.related-machine-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 17px;
+  border-top: 1px solid var(--md-light-border);
+}
+
+.related-machine-bottom span {
+  color: var(--md-green);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.related-machine-bottom svg {
+  color: var(--md-orange);
+  transition: transform 200ms ease;
+}
+
+.related-machine-card:hover .related-machine-bottom svg {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   AGUNITY MACHINERY DETAILS
+   Premium Agricultural Machinery Product Page
+========================================================= */
+
+:root {
+  --md-green: #174d32;
+  --md-green-dark: #103923;
+  --md-green-deep: #0c2c1b;
+  --md-green-light: #286c46;
+
+  --md-orange: #d88732;
+  --md-orange-dark: #b96c1d;
+
+  --md-cream: #f5f1e8;
+  --md-paper: #fbfaf6;
+  --md-white: #ffffff;
+
+  --md-text: #17211b;
+  --md-muted: #68736b;
+  --md-soft-text: #87918a;
+
+  --md-border: #d9ded8;
+  --md-light-border: #e7ebe5;
+
+  --md-soft-green: #e9f0e9;
+  --md-soft-orange: #f8eee2;
+
+  --md-dark: #16231b;
+
+  --md-container: 1340px;
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+.machine-details-page {
+  width: 100%;
+  overflow: hidden;
+  background: var(--md-paper);
+  color: var(--md-text);
+}
+
+.machine-details-page *,
+.machine-details-page *::before,
+.machine-details-page *::after {
+  box-sizing: border-box;
+}
+
+.machine-details-page img {
+  display: block;
+  max-width: 100%;
+}
+
+.machine-details-page a {
+  text-decoration: none;
+}
+
+.machine-details-container,
+.machine-info-layout,
+.related-machinery-container,
+.machine-fabrication-section,
+.machine-final-cta-inner {
+  width: min(var(--md-container), calc(100% - 80px));
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.machine-primary-btn,
+.machine-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 54px;
+  padding: 0 24px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.machine-primary-btn {
+  background: var(--md-orange);
+  color: var(--md-white);
+}
+
+.machine-primary-btn:hover {
+  background: var(--md-orange-dark);
+  color: var(--md-white);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(216, 135, 50, 0.22);
+}
+
+.machine-secondary-btn {
+  border: 1px solid var(--md-green);
+  background: transparent;
+  color: var(--md-green);
+}
+
+.machine-secondary-btn:hover {
+  background: var(--md-green);
+  color: var(--md-white);
+  transform: translateY(-2px);
+}
+
+.machine-primary-btn svg,
+.machine-secondary-btn svg {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+
+/* =========================================================
+   NOT FOUND
+========================================================= */
+
+.machine-not-found {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 30px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--md-cream),
+      var(--md-paper)
+    );
+}
+
+.machine-not-found-inner {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.machine-not-found-inner > span {
+  color: var(--md-orange);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.machine-not-found-inner h1 {
+  margin: 25px 0 20px;
+  color: var(--md-green-dark);
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.machine-not-found-inner h1 strong {
+  color: var(--md-green-light);
+}
+
+.machine-not-found-inner p {
+  max-width: 570px;
+  margin: 0 auto 35px;
+  color: var(--md-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.machine-details-hero {
+  position: relative;
+  padding: 28px 0 0;
+  background: var(--md-cream);
+}
+
+.machine-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 0 35px;
+  color: var(--md-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.machine-breadcrumb a {
+  color: var(--md-green);
+}
+
+.machine-breadcrumb a:hover {
+  color: var(--md-orange-dark);
+}
+
+.machine-breadcrumb span:last-child {
+  max-width: 420px;
+  overflow: hidden;
+  color: var(--md-soft-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.machine-details-grid {
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 70px;
+  align-items: center;
+  padding: 35px 0 80px;
+}
+
+.machine-details-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.machine-details-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--md-orange-dark);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.machine-details-category::before {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: var(--md-orange);
+}
+
+.machine-details-title {
+  max-width: 700px;
+  margin: 22px 0 25px;
+  color: var(--md-green-dark);
+  font-size: clamp(3.5rem, 6vw, 6.4rem);
+  line-height: 0.9;
+  font-weight: 850;
+  letter-spacing: -0.07em;
+}
+
+.machine-details-intro {
+  max-width: 650px;
+  margin: 0;
+  color: var(--md-muted);
+  font-size: 1.04rem;
+  line-height: 1.85;
+}
+
+.machine-details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 38px;
+}
+
+
+/* =========================================================
+   MACHINE PHOTO
+========================================================= */
+
+.machine-visual-card {
+  position: relative;
+  min-height: 610px;
+  overflow: hidden;
+  background: var(--md-green-dark);
+}
+
+.machine-visual-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.13;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.8) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.8) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+}
+
+.machine-visual-inner {
+  position: absolute;
+  inset: 25px;
+  z-index: 2;
+  overflow: hidden;
+  background: #d8ddd8;
+}
+
+.machine-details-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 700ms ease;
+}
+
+.machine-visual-card:hover .machine-details-image {
+  transform: scale(1.035);
+}
+
+.machine-visual-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9, 35, 22, 0.02) 30%,
+      rgba(9, 35, 22, 0.7) 100%
+    );
+}
+
+.machine-photo-label {
+  position: absolute;
+  z-index: 4;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  padding: 21px 24px;
+  background: rgba(16, 57, 35, 0.94);
+  border-left: 4px solid var(--md-orange);
+  color: var(--md-white);
+}
+
+.machine-photo-label span {
+  margin-bottom: 6px;
+  color: #b7c9bd;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.machine-photo-label strong {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.machine-image-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: var(--md-green-dark);
+  color: var(--md-white);
+}
+
+.machine-image-fallback svg {
+  font-size: 5rem;
+  color: var(--md-orange);
+}
+
+.machine-image-fallback span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+
+/* =========================================================
+   META STRIP
+========================================================= */
+
+.machine-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--md-border);
+  background: var(--md-paper);
+}
+
+.machine-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 105px;
+  justify-content: center;
+  padding: 20px 28px;
+  border-right: 1px solid var(--md-border);
+}
+
+.machine-meta-item:last-child {
+  border-right: 0;
+}
+
+.machine-meta-label {
+  color: var(--md-soft-text);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.machine-meta-value {
+  color: var(--md-green-dark);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   INFORMATION SECTION
+========================================================= */
+
+.machine-info-section {
+  padding: 125px 0;
+  background: var(--md-paper);
+}
+
+.machine-info-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 100px;
+  align-items: start;
+}
+
+.machine-info-block {
+  padding: 0 0 75px;
+  margin-bottom: 75px;
+  border-bottom: 1px solid var(--md-border);
+}
+
+.machine-info-block:last-child {
+  margin-bottom: 0;
+}
+
+.machine-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--md-orange-dark);
+  font-size: 0.67rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.machine-section-eyebrow::before {
+  content: "";
+  width: 27px;
+  height: 2px;
+  background: var(--md-orange);
+}
+
+.machine-section-title {
+  max-width: 800px;
+  margin: 19px 0 27px;
+  color: var(--md-green-dark);
+  font-size: clamp(2.7rem, 4vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.machine-section-text {
+  max-width: 850px;
+  margin: 0;
+  color: var(--md-muted);
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.machine-features {
+  margin-top: 35px;
+  border-top: 1px solid var(--md-border);
+}
+
+.machine-feature {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 72px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--md-border);
+}
+
+.machine-feature-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--md-soft-green);
+  color: var(--md-green);
+}
+
+.machine-feature-mark svg {
+  font-size: 0.95rem;
+}
+
+.machine-feature span {
+  color: var(--md-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   APPLICATIONS
+========================================================= */
+
+.machine-applications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 32px;
+}
+
+.machine-application {
+  display: inline-flex;
+  align-items: center;
+  min-height: 39px;
+  padding: 0 14px;
+  border: 1px solid var(--md-border);
+  background: var(--md-cream);
+  color: var(--md-green-dark);
+  font-size: 0.69rem;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   SPECIFICATIONS CARD
+========================================================= */
+
+.machine-spec-card {
+  position: sticky;
+  top: 100px;
+  overflow: hidden;
+  background: var(--md-green-dark);
+  color: var(--md-white);
+  box-shadow: 0 25px 60px rgba(16, 57, 35, 0.14);
+}
+
+.machine-spec-header {
+  padding: 30px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.machine-spec-header > span {
+  display: block;
+  margin-bottom: 12px;
+  color: #a9bcaf;
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.machine-spec-header h3 {
+  margin: 0;
+  color: var(--md-white);
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.machine-spec-list {
+  margin: 0;
+  padding: 0 28px;
+}
+
+.machine-spec-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  gap: 20px;
+  padding: 19px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.machine-spec-row dt {
+  color: #8fa397;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.machine-spec-row dd {
+  margin: 0;
+  color: var(--md-white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   CUSTOM FABRICATION
+========================================================= */
+
+.machine-fabrication-section {
+  padding: 0 0 125px;
+}
+
+.machine-fabrication-card {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 75px;
+  background: var(--md-green);
+}
+
+.machine-fabrication-card::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  right: -160px;
+  top: -230px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.machine-fabrication-card::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -75px;
+  top: -145px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.machine-fabrication-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.machine-fabrication-content .machine-section-eyebrow {
+  color: #f0a352;
+}
+
+.machine-fabrication-content h2 {
+  margin: 20px 0 24px;
+  color: var(--md-white);
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.machine-fabrication-content p {
+  max-width: 670px;
+  margin: 0 0 30px;
+  color: #c4d1c8;
+  font-size: 0.96rem;
+  line-height: 1.8;
+}
+
+.fabrication-icon {
+  position: absolute;
+  z-index: 1;
+  right: 100px;
+  bottom: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.16);
+}
+
+.fabrication-icon svg {
+  font-size: 5rem;
+}
+
+
+/* =========================================================
+   RELATED MACHINERY
+========================================================= */
+
+.related-machinery-section {
+  padding: 125px 0;
+  background: var(--md-cream);
+}
+
+.related-machinery-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.related-machinery-heading h2 {
+  margin: 18px 0 0;
+  color: var(--md-green-dark);
+  font-size: clamp(2.6rem, 4vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.related-machinery-heading > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--md-green);
+  color: var(--md-green);
+  font-size: 0.73rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.related-machinery-heading > a svg {
+  transition: transform 200ms ease;
+}
+
+.related-machinery-heading > a:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.related-machinery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.related-machine-card {
+  position: relative;
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  overflow: hidden;
+  background: var(--md-green-dark);
+  color: var(--md-white);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.related-machine-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.8) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.8) 1px,
+      transparent 1px
+    );
+  background-size: 35px 35px;
+}
+
+.related-machine-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 45px rgba(16, 57, 35, 0.17);
+}
+
+.related-machine-card > div {
+  position: relative;
+  z-index: 2;
+}
+
+.related-machine-category {
+  color: #9fb4a6;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.related-machine-card h3 {
+  max-width: 320px;
+  margin: 20px 0 0;
+  color: var(--md-white);
+  font-size: 1.55rem;
+  line-height: 1.12;
+}
+
+.related-machine-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.related-machine-bottom span {
+  color: #c0cec5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.related-machine-bottom svg {
+  color: var(--md-orange);
+  font-size: 1.2rem;
+  transition: transform 200ms ease;
+}
+
+.related-machine-card:hover .related-machine-bottom svg {
+  transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.machine-final-cta {
+  padding: 125px 0;
+  background: var(--md-paper);
+}
+
+.machine-final-cta-inner {
+  position: relative;
+  padding: 100px 80px;
+  overflow: hidden;
+  background: var(--md-green-dark);
+  text-align: center;
+}
+
+.machine-final-cta-inner::before,
+.machine-final-cta-inner::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.machine-final-cta-inner::before {
+  width: 500px;
+  height: 500px;
+  left: -260px;
+  top: -240px;
+}
+
+.machine-final-cta-inner::after {
+  width: 330px;
+  height: 330px;
+  right: -160px;
+  bottom: -200px;
+}
+
+.machine-final-cta-inner .machine-section-eyebrow,
+.machine-final-cta-inner h2,
+.machine-final-cta-inner p,
+.machine-final-cta-inner .machine-primary-btn {
+  position: relative;
+  z-index: 2;
+}
+
+.machine-final-cta-inner .machine-section-eyebrow {
+  color: #f0a352;
+}
+
+.machine-final-cta-inner h2 {
+  margin: 20px 0 25px;
+  color: var(--md-white);
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+}
+
+.machine-final-cta-inner h2 span {
+  color: #a9c9b3;
+}
+
+.machine-final-cta-inner p {
+  max-width: 720px;
+  margin: 0 auto 35px;
+  color: #b9c9be;
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.machine-final-cta-inner .machine-primary-btn {
+  display: inline-flex;
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1250px) {
+  .machine-details-container,
+  .machine-info-layout,
+  .related-machinery-container,
+  .machine-fabrication-section,
+  .machine-final-cta-inner {
+    width: min(1120px, calc(100% - 60px));
+  }
+
+  .machine-details-grid {
+    gap: 45px;
+  }
+
+  .machine-details-title {
+    font-size: clamp(3.4rem, 6vw, 5.5rem);
+  }
+
+  .machine-info-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 60px;
+  }
+
+  .machine-visual-card {
+    min-height: 550px;
+  }
+
+  .machine-final-cta-inner {
+    padding: 80px 60px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+  .machine-details-container,
+  .machine-info-layout,
+  .related-machinery-container,
+  .machine-fabrication-section,
+  .machine-final-cta-inner {
+    width: min(920px, calc(100% - 50px));
+  }
+
+  .machine-details-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .machine-details-copy {
+    max-width: 800px;
+  }
+
+  .machine-details-title {
+    font-size: clamp(4rem, 9vw, 6rem);
+  }
+
+  .machine-visual-card {
+    min-height: 600px;
+  }
+
+  .machine-info-layout {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .machine-spec-card {
+    position: relative;
+    top: auto;
+    max-width: 600px;
+  }
+
+  .related-machinery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .related-machine-card:last-child {
+    display: none;
+  }
+
+  .fabrication-icon {
+    right: 55px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .machine-details-container,
+  .machine-info-layout,
+  .related-machinery-container,
+  .machine-fabrication-section,
+  .machine-final-cta-inner {
+    width: calc(100% - 34px);
+  }
+
+  .machine-details-hero {
+    padding-top: 12px;
+  }
+
+  .machine-breadcrumb {
+    padding: 12px 0 25px;
+    font-size: 0.61rem;
+  }
+
+  .machine-details-grid {
+    padding: 25px 0 55px;
+  }
+
+  .machine-details-category {
+    font-size: 0.62rem;
+  }
+
+  .machine-details-title {
+    margin-top: 18px;
+    font-size: clamp(3.1rem, 14vw, 5rem);
+  }
+
+  .machine-details-intro {
+    font-size: 0.91rem;
+    line-height: 1.75;
+  }
+
+  .machine-details-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .machine-primary-btn,
+  .machine-secondary-btn {
+    width: 100%;
+  }
+
+  .machine-visual-card {
+    min-height: 460px;
+  }
+
+  .machine-visual-inner {
+    inset: 15px;
+  }
+
+  .machine-photo-label {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    padding: 16px 17px;
+  }
+
+  .machine-photo-label span {
+    font-size: 0.52rem;
+  }
+
+  .machine-photo-label strong {
+    font-size: 0.82rem;
+  }
+
+  .machine-meta-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .machine-meta-item {
+    min-height: 80px;
+    border-right: 0;
+    border-bottom: 1px solid var(--md-border);
+  }
+
+  .machine-meta-item:last-child {
+    border-bottom: 0;
+  }
+
+  .machine-info-section {
+    padding: 80px 0;
+  }
+
+  .machine-info-block {
+    padding-bottom: 55px;
+    margin-bottom: 55px;
+  }
+
+  .machine-section-title {
+    font-size: clamp(2.5rem, 11vw, 4rem);
+  }
+
+  .machine-section-text {
+    font-size: 0.9rem;
+  }
+
+  .machine-feature {
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
+  }
+
+  .machine-feature span {
+    font-size: 0.82rem;
+  }
+
+  .machine-spec-header {
+    padding: 25px 22px;
+  }
+
+  .machine-spec-list {
+    padding: 0 22px;
+  }
+
+  .machine-spec-row {
+    grid-template-columns: 0.8fr 1fr;
+  }
+
+  .machine-fabrication-section {
+    padding-bottom: 80px;
+  }
+
+  .machine-fabrication-card {
+    min-height: auto;
+    padding: 60px 28px;
+  }
+
+  .machine-fabrication-content h2 {
+    font-size: clamp(3rem, 13vw, 4.6rem);
+  }
+
+  .machine-fabrication-content p {
+    font-size: 0.88rem;
+  }
+
+  .fabrication-icon {
+    display: none;
+  }
+
+  .related-machinery-section {
+    padding: 80px 0;
+  }
+
+  .related-machinery-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .related-machinery-heading h2 {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+  }
+
+  .related-machinery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .related-machine-card {
+    min-height: 260px;
+  }
+
+  .related-machine-card:last-child {
+    display: flex;
+  }
+
+  .machine-final-cta {
+    padding: 80px 0;
+  }
+
+  .machine-final-cta-inner {
+    padding: 65px 25px;
+  }
+
+  .machine-final-cta-inner h2 {
+    font-size: clamp(3rem, 13vw, 4.6rem);
+  }
+
+  .machine-final-cta-inner p {
+    font-size: 0.88rem;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .machine-details-container,
+  .machine-info-layout,
+  .related-machinery-container,
+  .machine-fabrication-section,
+  .machine-final-cta-inner {
+    width: calc(100% - 28px);
+  }
+
+  .machine-details-title {
+    font-size: 3.05rem;
+  }
+
+  .machine-visual-card {
+    min-height: 375px;
+  }
+
+  .machine-visual-inner {
+    inset: 10px;
+  }
+
+  .machine-photo-label {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .machine-info-section {
+    padding: 65px 0;
+  }
+
+  .machine-section-title {
+    font-size: 2.55rem;
+  }
+
+  .machine-applications {
+    gap: 7px;
+  }
+
+  .machine-application {
+    min-height: 36px;
+    padding: 0 11px;
+    font-size: 0.62rem;
+  }
+
+  .machine-fabrication-card {
+    padding: 50px 22px;
+  }
+
+  .related-machinery-section {
+    padding: 65px 0;
+  }
+
+  .machine-final-cta {
+    padding: 65px 0;
+  }
+
+  .machine-final-cta-inner {
+    padding: 55px 20px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .machine-details-page *,
+  .machine-details-page *::before,
+  .machine-details-page *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
